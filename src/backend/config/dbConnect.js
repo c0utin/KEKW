@@ -4,15 +4,19 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 /**
- * Sequelize instance for connecting to a PostgreSQL database using ElephantSQL.
+ * Sequelize instance for connecting to a PostgreSQL database on RDS.
  * It utilizes environment variables for configuration.
  *
  * @type {Sequelize} - Sequelize instance
  */
-const sequelize = new Sequelize(process.env.ELEPHANTSQL_URL, {
+const sequelize = new Sequelize({
+  username: process.env.RDS_USERNAME, // Username for RDS
+  password: process.env.RDS_PASSWORD, // Password for RDS
+  host: process.env.RDS_HOSTNAME, // Hostname for RDS
+  port: process.env.RDS_PORT, // Port for RDS
   dialect: 'postgres',
   dialectOptions: {
-    ssl: { rejectUnauthorized: false }, // Enable SSL for ElephantSQL
+    ssl: { rejectUnauthorized: false }, // Enable SSL for RDS
   },
 });
 
@@ -25,7 +29,7 @@ const sequelize = new Sequelize(process.env.ELEPHANTSQL_URL, {
  * @returns {Promise<void>} - Promise indicating the sync process completion.
  */
 const syncDatabase = async (force = false) => {
-  await sequelize.sync();
+  await sequelize.sync({ force });
 };
 
 // Call the syncDatabase function with force true to reset the database
