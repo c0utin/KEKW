@@ -14,6 +14,7 @@ const sequelize = new Sequelize({
   password: process.env.RDS_PASSWORD, // Password for RDS
   host: process.env.RDS_HOSTNAME, // Hostname for RDS
   port: process.env.RDS_PORT, // Port for RDS
+  database: '',
   dialect: 'postgres',
   dialectOptions: {
     ssl: { rejectUnauthorized: false }, // Enable SSL for RDS
