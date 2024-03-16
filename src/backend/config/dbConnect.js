@@ -1,23 +1,19 @@
 const Sequelize = require('sequelize');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 /**
- * Sequelize instance for connecting to a PostgreSQL database on RDS.
- * It utilizes environment variables for configuration.
+ * Sequelize instance for connecting to a PostgreSQL database on Amazon RDS.
+ * It utilizes hardcoded configuration.
  *
  * @type {Sequelize} - Sequelize instance
  */
-const sequelize = new Sequelize({
-  username: process.env.RDS_USERNAME, // Username for RDS
-  password: process.env.RDS_PASSWORD, // Password for RDS
-  host: process.env.RDS_HOSTNAME, // Hostname for RDS
-  port: process.env.RDS_PORT, // Port for RDS
-  database: '',
+const sequelize = new Sequelize('inteli', 'postgres', '12345678', {
+  host: 'database-4.c18cukuqyzii.us-east-1.rds.amazonaws.com',
+  port: 5432,
   dialect: 'postgres',
   dialectOptions: {
-    ssl: { rejectUnauthorized: false }, // Enable SSL for RDS
+    ssl: {
+      rejectUnauthorized: false // Enable SSL for RDS
+    }
   },
 });
 
