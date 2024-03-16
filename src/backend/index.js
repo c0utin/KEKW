@@ -7,10 +7,7 @@ require('./config/dbConnect.js');
 const PORT = 3000;
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+app.use(cors());
 
 routes(app);
 
